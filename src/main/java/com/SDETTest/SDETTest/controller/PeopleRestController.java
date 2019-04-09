@@ -1,23 +1,21 @@
 package com.SDETTest.SDETTest.controller;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-
 import com.SDETTest.SDETTest.model.Person;
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,9 +59,9 @@ public class PeopleRestController {
         return people.stream().filter(x -> x.getEmail().equalsIgnoreCase(email)).collect(Collectors.toList());
     }
  
-    @RequestMapping(value = "/getPerson", method = RequestMethod.GET)
-    public List<Person> getPerson(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName) {
-        List<Person> result = people.stream().filter(x -> x.getFirstName().equalsIgnoreCase(firstName) && x.getLastName().equalsIgnoreCase(lastName)).collect(Collectors.toList());
+    @RequestMapping(value = "/searchByName", method = RequestMethod.GET)
+    public List<Person> searchByName(@RequestParam(value = "firstName") String firstName, @RequestParam(value = "lastName") String lastName) {
+        List<Person> result = people.stream().filter(x -> x.getFirstName().toLowerCase().contains(firstName.toLowerCase()) && x.getLastName().toLowerCase().contains(lastName.toLowerCase())).collect(Collectors.toList());
         return result;
     }
  
@@ -74,6 +72,15 @@ public class PeopleRestController {
 
         return peopleByState;
     }
- 
+    
+    @PostMapping(path="/savePerson")
+    public Person savePerson(@RequestBody Person person) {
+        Person latestPerson = people.stream().max(Comparator.comparing(Person::getId)).orElseThrow(NoSuchElementException::new);;
+        Person newPerson = person;
+        newPerson.setId(latestPerson.getId()+1);
+        people.add(newPerson);
+        return newPerson;
+    }
+    
    
 }
