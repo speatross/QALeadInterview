@@ -1,9 +1,8 @@
 package com.SDETTest.SDETTest.controller;
 
-import java.io.InputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,7 +11,7 @@ import com.SDETTest.SDETTest.model.Person;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,10 +32,8 @@ public class PeopleRestController {
         people = new ArrayList<Person>();
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        InputStream file;
         try {
-            ClassPathResource resource = new ClassPathResource("com/SDETTEST/SDETTEST/data/people.json");
-            file = resource.getInputStream();
+            File file = ResourceUtils.getFile("src/main/resources/people.json");
             filePeople = objectMapper.readValue(file, Person[].class);
             people = Arrays.asList(filePeople);
         } catch (Exception e1) {
@@ -67,8 +64,7 @@ public class PeopleRestController {
  
     @RequestMapping(value = "/getPersonByState/{state}", method = RequestMethod.GET)
     public List<Person> getPersonByState(@PathVariable(value = "state") String state) {
-        List<Person> peopleByState = people.stream().filter(x -> x.getState().equalsIgnoreCase(state))
-                .collect(Collectors.toList());
+        List<Person> peopleByState = people.stream().filter(x -> x.getState().equalsIgnoreCase(state)).collect(Collectors.toList());
 
         return peopleByState;
     }
