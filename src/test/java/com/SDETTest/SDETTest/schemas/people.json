@@ -19,7 +19,7 @@
         "country": {
           "type": "integer",
           "title": "The Country Schema",
-          "default": 0
+          "default": ""
         },
         "email": {
           "type": "string",

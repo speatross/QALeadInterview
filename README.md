@@ -15,4 +15,4 @@ Please clone the project into your folder of your choice and run the following c
 
 To start the API Server run the application (SdetTestApplication.java Main) in your IDE
 
-Open you browser and navigate to http://localhost:1338 to begin the interview test.
+Open you browser and navigate to http://localhost:8080 to begin the interview test.
