@@ -2,25 +2,29 @@ package com.SDETTest.SDETTest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.fge.jackson.JsonLoader;
-
 import com.github.fge.jsonschema.core.report.ProcessingReport;
 import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
 import com.jayway.restassured.http.ContentType;
-
 import com.jayway.restassured.response.Response;
-
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.springframework.core.io.ClassPathResource;
 
+
 import java.net.URL;
 
+/*
 
+Please start the SdetTestApplication before running these tests.
+
+*/
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PeopleRestController_getPeopleTests {
+   
 
+    
     private Response response = null; // Response object
 
     @Before
@@ -37,7 +41,8 @@ public class PeopleRestController_getPeopleTests {
         // Verify the http response status returned. Check Status Code is 200?
         HelperMethods.checkStatusIs200(response);
     }
-
+    //Please remove Ignore tag and make this test pass
+   @Ignore
     @Test
     public void T02_EnsureResponseIsValidSchema() {
         JsonSchemaFactory factory = JsonSchemaFactory.byDefault();
