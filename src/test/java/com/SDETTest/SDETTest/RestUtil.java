@@ -70,7 +70,7 @@ public class RestUtil {
     */
     public static JsonPath getJsonPath (Response res) {
         String json = res.asString();
-        //System.out.print("returned json: " + json +"\n");
+        System.out.print("returned json: " + json +"\n");
         return new JsonPath(json);
     }
 }

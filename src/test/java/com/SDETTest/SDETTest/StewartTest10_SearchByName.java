@@ -11,7 +11,6 @@ import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.springframework.core.io.ClassPathResource;
 
-
 import java.net.URL;
 
 /*
@@ -21,7 +20,7 @@ Please start the SdetTestApplication before running these tests.
 */
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PeopleRestController_getPeopleTests {
+public class StewartTest10_SearchByName {
    
 
     
@@ -33,7 +32,7 @@ public class PeopleRestController_getPeopleTests {
     @Before
     public void setup() throws Exception {
         RestUtil.setBaseURI("http://localhost:8080/"); // Setup Base URI
-        RestUtil.setBasePath("getPeople?fromId=0&toId=10"); // Setup Base Path
+        RestUtil.setBasePath("searchByName?firstName=Irvin&lastName=Merrikin"); // Setup Base Path
         RestUtil.setContentType(ContentType.JSON); // Setup Content Type
         response = RestUtil.getResponse();
         RestUtil.getJsonPath(response);
