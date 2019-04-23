@@ -33,6 +33,7 @@ public class StewartTest5_getPersonByEmail {
         RestUtil.setContentType(ContentType.JSON); // Setup Content Type
         response = RestUtil.getResponse();
         RestUtil.getJsonPath(response);
+
     }
 
     @Test
